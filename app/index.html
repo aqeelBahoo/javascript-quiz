@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="style/app.css">
+    <!--<base href="/">-->
+</head>
+<body ng-app="javascriptApp">
+
+<!--
+<ul>
+    <li><a ui-sref="partyDetail({'id': 5, 'location': 'pakistan'})">partyDetail</a></li>
+</ul>
+-->
+
+
+<!--<div ui-view="header"></div>-->
+<div ui-view class="container"></div>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+
+<!--third party-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+<!--main files-->
+<script src="app.js"></script>
+<script src="router.js"></script>
+
+<!--controllers-->
+<script src="controllers/quizCtrl.js"></script>
+<script src="controllers/resultCtrl.js"></script>
+
+<!--services-->
+<script src="factory/dataService.js"></script>
+<script src="factory/quizMetrics.js"></script>
+
+</body>
+</html>

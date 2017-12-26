@@ -1,0 +1,70 @@
+<div>
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Progress: </h4>
+
+            <div class="btn-toolbar">
+                <button class="btn"
+                        ng-click="quiz.setActiveQuestion($index)"
+                        ng-repeat="question in quiz.DataService.quizQuestions"
+                        ng-class="{'btn-danger':  question.selected === null, 'btn-info': question.selected !== null}">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-question-sign':  question.selected === null, 'glyphicon-pencil': question.selected !==null}">
+                    </span>
+                </button>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <h4>Legend</h4>
+
+                <div class="col-md-4">
+                    <button class="btn btn-info">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <p>Answer</p>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-danger">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </button>
+                    <p>Unanswer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger" ng-show="quiz.error">
+        <p>Alert! You have not answered all of the questions. <span class="close"
+                                                                    ng-click="quiz.error = false">&times</span></p>
+    </div>
+
+    <div class="row">
+        <h2>Question: </h2>
+
+        <div class="well well-md" ng-hide="quiz.finalize">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>{{quiz.activeQuestion+1 + '. ' + quiz.DataService.quizQuestions[quiz.activeQuestion].text}}</h4>
+                </div>
+                <div class="col-md-6 "
+                     ng-repeat="answer in quiz.DataService.quizQuestions[quiz.activeQuestion].possibilities">
+                    <h4 class="answer"
+                        ng-class="{'bg-info': quiz.DataService.quizQuestions[quiz.activeQuestion].selected == $index}"
+                        ng-click="quiz.selectedAnswer($index)">{{answer.answer}}</h4>
+                </div>
+            </div>
+            <button class="btn btn-warning"
+                    ng-click="quiz.answeredQuestion()">Continue
+            </button>
+        </div>
+
+        <!--ask user to finalize the quiz-->
+        <div class="well well-sm" ng-show="quiz.finalize">
+            <h3>Are You Sure You Want To Submit Your Answers?</h3>
+            <button class="btn btn-success" ui-sref="result" ng-click="quiz.resultActive()">Yes</button>
+            <button class="btn btn-danger" ng-click="quiz.finalize = false">No</button>
+        </div>
+    </div>
+</div>

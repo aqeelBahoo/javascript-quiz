@@ -1,0 +1,59 @@
+<div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Results: </h2>
+
+            <div class="btn-toolbar">
+                <button class="btn"
+                        ng-repeat="answer in result.DataService.quizQuestions"
+                        ng-click="result.setActiveQuestion($index)"
+                        ng-class="{'btn-success':  answer.correct, 'btn-danger': !answer.correct}">
+                    <span class="glyphicon"
+                          ng-class="{'glyphicon-ok': answer.correct, 'glyphicon-remove': !answer.correct}"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <h4>Legend</h4>
+
+                <div class="col-md-4">
+                    <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
+                    <p>Correct</p>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                    <p>Incorrect</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="top-margin">You Scored </h2>
+
+    <h2><b>{{result.QuizMetrics.percentage()}}%</b></h2>
+
+    <div class="row">
+        <h3>Question: </h3>
+
+        <div class="well well-sm">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>{{result.activeQuestion+1 + '. ' +
+                        result.DataService.quizQuestions[result.activeQuestion].text}}</h4>
+                </div>
+                <div class="col-md-6"
+                     ng-repeat="answer in result.DataService.quizQuestions[result.activeQuestion].possibilities">
+                    <h4 class="answer"
+                        ng-class="{'bg-success': $index === result.correctAnswers[result.activeQuestion],
+                        'bg-danger': $index === result.DataService.quizQuestions[result.activeQuestion].selected &&
+                        $index !== result.correctAnswers[result.activeQuestion]}">
+                        {{answer.answer}}</h4>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" ng-click="result.startQuiz()" ui-sref="quiz">Go to Quiz</button>
+    </div>
+
+</div>
