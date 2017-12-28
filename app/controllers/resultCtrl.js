@@ -14,12 +14,8 @@ function ResultController(DataService, QuizMetrics) {
     vm.activeQuestion = 0;
 
     function startQuiz() {
-        console.log("test")
-        console.log(QuizMetrics.finalize)
         QuizMetrics.resetQuiz();
-        console.log("test2")
     }
-
     function setActiveQuestion(index) {
         vm.activeQuestion = index;
     }
