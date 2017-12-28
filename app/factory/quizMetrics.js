@@ -6,7 +6,6 @@ QuizMetrics.$inject = ['DataService'];
 function QuizMetrics(DataService) {
     var quizObj = {
         activeQuestion: 0,
-        //   urlquestionNo: 1,
         numAnsweredQuestion: 0,
         finalize: false,
         error: false,
@@ -16,8 +15,7 @@ function QuizMetrics(DataService) {
         percentage: percentage,
         userCorrectAnswer: 0
     };
-    //   var correctAnswer = DataService.correctAnswer;
-    //   var quizQuestions = quizObj.DataService.quizQuestions;
+
     return quizObj;
 
     function resetQuiz() {
