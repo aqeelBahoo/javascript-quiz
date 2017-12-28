@@ -5,7 +5,12 @@ QuizMetrics.$inject = ['DataService'];
 
 function QuizMetrics(DataService) {
     var quizObj = {
-        result: result,
+        activeQuestion: 0,
+        //   urlquestionNo: 1,
+        numAnsweredQuestion: 0,
+        finalize: false,
+        error: false,
+        activeResult: activeResult,
         DataService: DataService,
         resetQuiz: resetQuiz,
         percentage: percentage,
@@ -23,7 +28,7 @@ function QuizMetrics(DataService) {
         quizObj.userCorrectAnswer = 0;
     }
 
-    function result() {
+    function activeResult() {
         for (var i = 0; i < quizObj.DataService.quizQuestions.length; i++) {
             var quizQuestion = quizObj.DataService.quizQuestions[i];
             if (quizQuestion.selected == DataService.correctAnswer[i]) {

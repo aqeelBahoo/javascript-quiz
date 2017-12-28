@@ -7,40 +7,53 @@ angular.module('javascriptApp')
 //QuizController.$inject = ['DataService', 'QuizMetrics', '$state', '$stateParams'];
 
 function QuizController(DataService, QuizMetrics, $state, $stateParams) {
+    console.log($stateParams);
+
     var vm = this;
     vm.DataService = DataService;
     vm.QuizMetrics = QuizMetrics;
     vm.selectedAnswer = selectedAnswer;
     vm.answeredQuestion = answeredQuestion;
     vm.setActiveQuestion = setActiveQuestion;
-    vm.resultActive = resultActive;
-    vm.activeQuestion = 0;
+    vm.activeResult = activeResult;
+    if ($stateParams.id > 0 && $stateParams.id <= DataService.quizQuestions.length) {
+        vm.activeQuestion = Number($stateParams.id - 1);
+    }
+    //vm.activeQuestion = QuizMetrics.activeQuestion;
+    // console.log(vm.activeQuestion);
     //$location.path('quiz({id: 10001})');
 
-    vm.finalize = false;
-    vm.error = false;
+    // vm.finalize = QuizMetrics.finalize;
+    // vm.error = QuizMetrics.error;
     var quizLength = DataService.quizQuestions.length;
-    var numAnsweredQuestion = 0;
+    var numAnsweredQuestion = QuizMetrics.numAnsweredQuestion;
 
     function setActiveQuestion(index) {
         if (index === undefined) {
             var breakout = false;
             while (!breakout) {
+                //  QuizMetrics.activeQuestion = vm.activeQuestion < quizLength - 1 ? ++vm.activeQuestion : 0;
+                //  QuizMetrics.urlquestionNo =  QuizMetrics.activeQuestion +1;
                 vm.activeQuestion = vm.activeQuestion < quizLength - 1 ? ++vm.activeQuestion : 0;
 
+                // console.log('quizMetric ' + QuizMetrics.activeQuestion);
                 //for url parameter
-              //  $state.go('quiz', ({id: vm.activeQuestion}));
+                //  $state.go('quiz', ({id: vm.activeQuestion}));
 
                 if (vm.activeQuestion == 0) {
-                    vm.error = true;
+                    QuizMetrics.error = true;
                 }
                 if (DataService.quizQuestions[vm.activeQuestion].selected == null) {
                     breakout = true;
                 }
             }
+            // $state.go('quiz', ({id: QuizMetrics.urlquestionNo}));
+            $state.go('quiz', ({id: vm.activeQuestion + 1}));
+            // console.log('test ' + QuizMetrics.activeQuestion);//not exist
         }
         else {
             vm.activeQuestion = index;
+            $state.go('quiz', ({id: index + 1}));
         }
     }
 
@@ -50,7 +63,7 @@ function QuizController(DataService, QuizMetrics, $state, $stateParams) {
 
     function answeredQuestion() {
         if (DataService.quizQuestions[vm.activeQuestion].selected !== null) {
-            numAnsweredQuestion++;
+            numAnsweredQuestion = ++QuizMetrics.numAnsweredQuestion;
             if (numAnsweredQuestion >= quizLength) {
                 for (var i = 0; i < quizLength; i++) {
                     if (DataService.quizQuestions[i].selected == null) {
@@ -58,15 +71,15 @@ function QuizController(DataService, QuizMetrics, $state, $stateParams) {
                         return;
                     }
                 }
-                vm.finalize = true;
-                vm.error = false;
+                QuizMetrics.finalize = true;
+                QuizMetrics.error = false;
                 return;
             }
         }
         setActiveQuestion();
     }
 
-    function resultActive() {
-        QuizMetrics.result();
+    function activeResult() {
+        QuizMetrics.activeResult();
     }
 }
